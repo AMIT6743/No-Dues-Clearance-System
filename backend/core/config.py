@@ -3,7 +3,7 @@ from typing import Optional
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://postgres:postgrespassword@localhost:5432/nodues")
+    DATABASE_URL: str = os.getenv("DATABASE_URL", "sqlite:///./nodues.db")
     SECRET_KEY: str = os.getenv("SECRET_KEY", "your-super-secret-jwt-key")
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440
