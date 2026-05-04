@@ -2,20 +2,15 @@
 
 Full-stack Digital No-Dues Clearance System built with FastAPI, React, Tailwind CSS, PostgreSQL, SQLAlchemy, JWT authentication, ReportLab PDFs, and QR-code certificate verification.
 
-## Structure
+## Structure            
 
 - `backend/` - FastAPI API, SQLAlchemy models, schemas, routers, workflow engine, certificate service
 - `frontend/` - React + Vite dashboard UI with Tailwind CSS
 - `schema.sql` - PostgreSQL schema
-- `docker-compose.yml` - local PostgreSQL service
 
 ## Backend Setup
 
-1. Start PostgreSQL:
-
-```bash
-docker compose up -d
-```
+1. Ensure PostgreSQL is installed and running locally, and create a database (e.g., `nodues`). Apply `schema.sql` to this database.
 
 2. Create the backend environment file:
 

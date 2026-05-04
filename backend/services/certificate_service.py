@@ -72,18 +72,36 @@ class CertificateService:
         c.drawString(100, height - 330, f"Issue Date: {cert.issue_date.strftime('%Y-%m-%d')}")
 
         c.setFont("Helvetica-Bold", 14)
-        c.drawString(100, height - 380, "Department Approval Summary")
-        c.setFont("Helvetica", 12)
-        y = height - 405
+        c.drawString(100, height - 380, "Department Clearance Details")
+        
+        # Table Header
+        c.setFont("Helvetica-Bold", 12)
+        c.drawString(100, height - 410, "Department")
+        c.drawString(300, height - 410, "Status")
+        c.drawString(450, height - 410, "Signature/Stamp")
+        c.line(100, height - 415, 550, height - 415)
+
+        c.setFont("Helvetica", 11)
+        y = height - 435
         for approval in approvals:
+            if y < 100: # Page break logic simplified for now
+                c.showPage()
+                y = height - 100
+            
             department_name = approval.department.name if approval.department else f"Department {approval.department_id}"
-            c.drawString(120, y, f"- {department_name}: {approval.status}")
-            y -= 22
+            c.drawString(100, y, department_name[:35])
+            c.drawString(300, y, approval.status)
+            c.drawString(450, y, "________________") # Signature placeholder
+            y -= 25
+        
+        # Footer
+        c.setFont("Helvetica-Oblique", 10)
+        c.drawCentredString(width/2, 50, "This is a digitally generated certificate and is valid with the QR code verification.")
         
         # Draw QR Code
         from reportlab.lib.utils import ImageReader
         qr_img = ImageReader(img_buffer)
-        c.drawImage(qr_img, width - 200, 100, width=150, height=150)
+        c.drawImage(qr_img, width - 150, 70, width=100, height=100)
         
         c.save()
         pdf_buffer.seek(0)
